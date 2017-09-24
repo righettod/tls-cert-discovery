@@ -1,5 +1,7 @@
 
 
+[![Requirements Status](https://requires.io/github/righettod/tls-cert-discovery/requirements.svg?branch=master)](https://requires.io/github/righettod/tls-cert-discovery/requirements/?branch=master)
+
 # TLS Certificate Discovery
 
 Tool to identify new host using the ***subjectAltName*** (Subject Alternate Name) extension of a x509 HTTP TLS certificate.
