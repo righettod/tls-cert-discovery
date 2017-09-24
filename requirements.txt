@@ -1,0 +1,12 @@
+asn1crypto==0.22.0
+cffi==1.11.0
+colorama==0.3.9
+cryptography==2.0.3
+idna==2.6
+IPy==0.83
+pycparser==2.18
+pyOpenSSL==17.3.0
+six==1.11.0
+termcolor==1.1.0
+tqdm==4.17.1
+XlsxWriter==1.0.0
