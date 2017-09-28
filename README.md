@@ -69,6 +69,11 @@ Execution of the tool:
 
 ![demo1](demo1.png)
 
-Result are consolidated in a Excel worksheet in which new discovered hosts are highlighted in green. The result also include all the SAN founds for each IP on which an HTTP TLS certificate is available on port 443:
+Result are consolidated in a Excel worksheet in which new discovered hosts are highlighted in green. 
+The result also include all the SAN founds for each IP on which an HTTP TLS certificate is available on port 443:
 
 ![demo2](demo2.png)
+
+Another tab is added in which a network graph is inserted in order to show the relation between source IP(s) and SAN founds.
+
+![demo3](demo3.png)

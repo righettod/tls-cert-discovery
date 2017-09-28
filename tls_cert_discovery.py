@@ -9,6 +9,9 @@ import OpenSSL
 import argparse
 import colorama
 import xlsxwriter
+import networkx as nx
+import matplotlib.pyplot as plt
+import os
 from termcolor import colored
 from IPy import IP
 from tqdm import tqdm
@@ -138,8 +141,37 @@ if __name__ == "__main__":
                         san_infos["IS_NEW_HOST"] = False
                     data[data_key].append(san_infos)
 
+    # Generate the network graph
+    print("[*] Generate the network graph...")
+    san_added_nodes_no_linked_to_src_ip = []
+    san_added_nodes_linked_to_src_ip = []
+    src_ip_added_nodes = []
+    graph = nx.Graph()
+    for ip in data:
+        san_infos_list = data[ip]
+        ip_node_name = "IP Source\n%s" % ip
+        graph.add_node(ip_node_name)
+        src_ip_added_nodes.append(ip_node_name)
+        for san_infos in san_infos_list:
+            san_node_name = "%s\n%s" % (san_infos["SAN"], san_infos["IP"])
+            san_ip_port = san_infos["IP"] + ":443"
+            if san_ip_port in data:
+                graph.add_edge(ip_node_name, san_node_name)
+                san_added_nodes_linked_to_src_ip.append(san_node_name)
+            else:
+                graph.add_node(san_node_name)
+                san_added_nodes_no_linked_to_src_ip.append(san_node_name)
+    pos = nx.spring_layout(graph, k=3, scale=1000)
+    nx.draw_networkx_nodes(graph, pos, node_size=400, node_color='orange', nodelist=src_ip_added_nodes)
+    nx.draw_networkx_nodes(graph, pos, node_size=400, node_color='yellow', nodelist=san_added_nodes_no_linked_to_src_ip)
+    nx.draw_networkx_nodes(graph, pos, node_size=400, node_color='green', nodelist=san_added_nodes_linked_to_src_ip)
+    nx.draw_networkx_edges(graph, pos, width=2, alpha=0.5, edge_color='green', style='solid')
+    nx.draw_networkx_labels(graph, pos, font_size=4, font_family='sans-serif')
+    plt.axis('off')
+    plt.savefig("graph.png", format="png", dpi=200, orientation="landscape")
+
     # Consolidate the result in a Excel worksbook
-    print("[*] Consolidate the results in a Excel worksbook...")
+    print("[*] Consolidate the results in a Excel workbook...")
     workbook = xlsxwriter.Workbook(args.result_file)
     format_header = workbook.add_format({'bold': True, 'valign': 'vcenter', 'align': 'center'})
     worksheet = workbook.add_worksheet("Host founds")
@@ -164,5 +196,18 @@ if __name__ == "__main__":
             row += 1
     worksheet.autofilter("A1:D" + str(row))
     worksheet.set_column(0, 3, 50)
+    worksheet = workbook.add_worksheet("Network Graph")
+    format_header = workbook.add_format({'bold': True, 'valign': 'vcenter', 'align': 'left'})
+    format_text = workbook.add_format({'bold': False, 'valign': 'vcenter', 'align': 'left'})
+    worksheet.write("A1", "Legend:", format_header)
+    worksheet.write("A2", "Circle in orange", format_header)
+    worksheet.write("B2", "Source IP included in the IP range to analyze", format_text)
+    worksheet.write("A3", "Circle in green + linked line", format_header)
+    worksheet.write("B3", "Relation between a source IP and a Subject Alternate Name", format_text)
+    worksheet.write("A4", "Circle in yellow", format_header)
+    worksheet.write("B4", "Subject Alternate Name without relation with a source IP", format_text)
+    worksheet.insert_image("A5", "graph.png", {'x_offset': 5, 'y_offset': 5, 'x_scale': 2, 'y_scale': 2})
+    worksheet.set_column(0, 2, 57)
     workbook.close()
+    os.remove("graph.png")
     print(colored("[!] Results consolidated in file '%s' !" % args.result_file, "green"))
