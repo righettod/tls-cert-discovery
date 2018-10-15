@@ -16,10 +16,13 @@ from termcolor import colored
 from IPy import IP
 from tqdm import tqdm
 from pathlib import Path
+import warnings
+import matplotlib.cbook
 
 # Cache dictionary used to avoid to send IP lookup when IP has been already retrieived for a SAN.
 # The KEY is the SAN and the VALUE is the IP address or 0.0.0.0 IP address for SAN with a wildcard or if IP cannot be resolved
 SAN_CACHE_DICT = {}
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
 
 def extract_tls_cert(host):
