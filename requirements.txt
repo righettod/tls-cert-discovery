@@ -1,8 +1,8 @@
 termcolor==1.1.0
-networkx==2.2
+networkx==2.3
 matplotlib==3.0.3
-XlsxWriter==1.1.1
-tqdm==4.26.0
-colorama==0.4.0
-IPy==0.83
-pyOpenSSL==18.0.0
+XlsxWriter==1.1.7
+tqdm==4.31.1
+colorama==0.4.1
+IPy==1.00
+pyOpenSSL==19.0.0
