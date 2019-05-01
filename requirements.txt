@@ -1,6 +1,6 @@
 termcolor==1.1.0
 networkx==2.2
-matplotlib==3.0.0
+matplotlib==3.0.3
 XlsxWriter==1.1.1
 tqdm==4.26.0
 colorama==0.4.0
