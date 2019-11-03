@@ -21,3 +21,4 @@ jobs:
     - name: Try an execution
       run: |        
         python tls_cert_discovery.py -r 217.31.74.128/28 -o test.xlsx
+        ls -l test.xlsx
