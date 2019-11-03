@@ -6,7 +6,7 @@
 
 # TLS Certificate Discovery
 
-Tool to identify new host using the ***subjectAltName*** (Subject Alternate Name) extension of a x509 HTTP TLS certificate.
+Script to identify new host using the ***subjectAltName*** (Subject Alternate Name) extension of a x509 HTTP TLS certificate.
 
 # Motivation
 
