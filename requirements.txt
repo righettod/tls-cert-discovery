@@ -1,7 +1,7 @@
 termcolor==1.1.0
 networkx==2.4
 matplotlib==3.1.1
-XlsxWriter==1.2.3
+XlsxWriter==1.2.4
 tqdm==4.38.0
 colorama==0.4.1
 IPy==1.00
