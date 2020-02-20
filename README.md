@@ -4,6 +4,8 @@
 
 [![Known Vulnerabilities](https://snyk.io/test/github/righettod/tls-cert-discovery/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/righettod/tls-cert-discovery?targetFile=requirements.txt)
 
+![Test application running state](https://github.com/righettod/tls-cert-discovery/workflows/Test%20application%20running%20state/badge.svg)
+
 # TLS Certificate Discovery
 
 Script to identify new host using the ***subjectAltName*** (Subject Alternate Name) extension of a x509 HTTP TLS certificate.
