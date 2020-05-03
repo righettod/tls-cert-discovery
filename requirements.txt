@@ -2,7 +2,7 @@ termcolor==1.1.0
 networkx==2.4
 matplotlib==3.2.1
 XlsxWriter==1.2.8
-tqdm==4.45.0
+tqdm==4.46.0
 colorama==0.4.3
 IPy==1.00
 pyOpenSSL==19.1.0
